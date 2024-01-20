@@ -16,7 +16,8 @@ const authSlice = createSlice({
             state.user = null;
         },
         updateUser(state, action) {
-            state.user.fname = action.payload;
+            state.user.fname = action.payload.fname;
+            state.user.imgUrl = action.payload.imgUrl;
         }
     }
 });

@@ -10,7 +10,8 @@ import { auth, firestore, uploadImageToFirebase } from "../../firebase/firebase"
 import { FirebaseError } from "firebase/app";
 import { getDocs, query, collection, where, setDoc, doc } from "firebase/firestore";
 import ImageInput from "../../components/authentication/ImageInput";
-import { cnicValidations, emailValidations, fullNameValidations, imageValidations, passwordValidations } from "../../utils/auth/validations";
+import { cnicValidations, emailValidations, fullNameValidations, imageValidations, passwordValidations } from "../../utils/auth/auth-validations";
+import { initialDepartmentsLoad } from "../../state/department/actions";
 
 export default function CreateAccount() {
 
@@ -66,6 +67,7 @@ export default function CreateAccount() {
             setMessage({type: 'success', message: "Your account has been created, you will be redirected in 1 second"});
             setTimeout(() => {
                 dispatch(authActions.login(userData));
+                dispatch(initialDepartmentsLoad());
             }, 1000);
         }
         catch (error) {

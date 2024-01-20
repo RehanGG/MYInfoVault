@@ -11,7 +11,7 @@ import { routes } from "./routes";
 
 const generateRoutes = user => {
   const generatedRoutes = [];
-  const appRoutes = [...routes].filter(route => route.name !== 'Dashboard');
+  const appRoutes = [...routes];
 
   for(const route of appRoutes) {
     const returnRoute = {path: route.path, element: <route.Component/>};

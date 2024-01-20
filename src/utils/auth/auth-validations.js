@@ -11,7 +11,7 @@ export const fullNameValidations = [
         errorFn: (value) => {
             return value.length < 1;
         },
-        message: 'Your full name is required'
+        message: 'name is required'
     },
     {
         errorFn: (value) => {

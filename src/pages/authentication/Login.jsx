@@ -9,7 +9,8 @@ import { auth, firestore } from "../../firebase/firebase";
 import { authActions } from "../../state/auth/slice";
 import { doc, getDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
-import { emailValidations, passwordValidations } from '../../utils/auth/validations';
+import { emailValidations, passwordValidations } from '../../utils/auth/auth-validations';
+import { initialDepartmentsLoad } from '../../state/department/actions';
 
 
 export default function Login() {
@@ -46,6 +47,7 @@ export default function Login() {
             
             setTimeout(() => {
                 dispatch(authActions.login(userData));
+                dispatch(initialDepartmentsLoad());
             }, 1000);
         } 
         catch (error) {

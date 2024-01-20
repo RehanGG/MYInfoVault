@@ -5,6 +5,8 @@ import { auth } from "../../firebase/firebase";
 import SidebarItem from "./SiderbarItem";
 import { routes } from "../../router/routes";
 import { useNavigate } from "react-router-dom";
+import { DepartmentDataActions } from "../../state/department-data/slice";
+import { DepartmentActions } from "../../state/department/slice";
 
 
 export default function Sidebar() {
@@ -17,6 +19,8 @@ export default function Sidebar() {
         navigate('/');
         auth.signOut();
         dispatch(authActions.logout());
+        dispatch(DepartmentDataActions.reset());
+        dispatch(DepartmentActions.reset());
     }
 
     return (
@@ -30,6 +34,10 @@ export default function Sidebar() {
 
             <nav className="mt-10">
                 {routes.map(route => {
+                    if(route.hide) {
+                        return null;
+                    }
+                    
                     const item = (<SidebarItem key={route.path} end={route.end} link={route.path} ItemIcon={route.icon}>{route.name}</SidebarItem>);
                     if(route.admin && user && user.admin) {
                         return item;       

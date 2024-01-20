@@ -23,4 +23,3 @@ export const uploadImageToFirebase = async (path, file) => {
     const result = await uploadBytes(storageRef, file);
     return getDownloadURL(storageRef);
 }
-

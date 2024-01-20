@@ -8,7 +8,7 @@ export const dummyRouter = createBrowserRouter([
       path: '/',
       errorElement: <ErrorPage/>,
       element: <DummyPage/>,
-      children: [...routes].filter((route) => route.name !== 'Dashboard').map((Route) => ({
+      children: [...routes].map((Route) => ({
         path: Route.path,
         element: <DummyPage/>
       }))

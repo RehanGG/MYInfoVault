@@ -14,7 +14,6 @@ export default function ListUsers() {
         let unsubscribe;
         async function initialLoad() {
             unsubscribe = onSnapshot(query(collection(firestore, 'users')), querySnapshot => {
-                console.log('test')
                 const tmpUsers = [];
                 querySnapshot.forEach((doc) => {
                     tmpUsers.push(doc.data());

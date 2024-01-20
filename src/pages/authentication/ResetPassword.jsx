@@ -6,7 +6,7 @@ import SubmitButton from "../../components/authentication/SubmitButton";
 import { useRef, useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-import { emailValidations } from "../../utils/auth/validations";
+import { emailValidations } from "../../utils/auth/auth-validations";
 
 export default function ResetPassword() {
     document.title = 'MYInfoVault - Reset Password';
