@@ -5,9 +5,9 @@ const roadMap = [
     {name: 'User view', done: true},
     {name: 'User uploaded functionality', done: true},
     {name: 'Department View', done: true},
-    {name: 'Admin View'},
-    {name: 'Data Request (from customer data such as health) '},
-    {name: 'User approval (based on requests)'},
+    {name: 'Admin View', done: true},
+    {name: 'Data Request (from customer data such as health) ', done: true},
+    {name: 'User approval (based on requests)', done: true},
     {name: 'Data Settings'},
     {name: 'User assistance'},
     {name: 'Data Scrapping'},
@@ -15,6 +15,7 @@ const roadMap = [
 
 
 export default function HomePage() {
+    document.title = 'Dashboard';
     return (       
         <div className="p-6 bg-white rounded-md shadow-md flex flex-col items-center">
             <div className="mb-10 flex flex-col items-center">

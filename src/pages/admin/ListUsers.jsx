@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import Loader from '../../components/common/Loader';
 import {collection, doc, onSnapshot, query, updateDoc} from 'firebase/firestore'
 import { firestore } from "../../firebase/firebase";
+import SelectDepartmentRequest from "../../components/admin/request/SelectDepartmentRequest";
+import { useSelector } from "react-redux";
 
 export default function ListUsers() {
 
+
+    const currentUserId = useSelector(state => state.auth.user.uid);
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
 
@@ -36,7 +40,6 @@ export default function ListUsers() {
             updateDoc(doc(firestore, 'users', userId), {admin: true});
         }
     }
-
     function constructTable() {
         return (
             <div className="flex flex-col mt-8">
@@ -49,7 +52,8 @@ export default function ListUsers() {
                                     <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">CNIC</th>
                                     <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Email Verified</th>
                                     <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-100"></th>
+                                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-100">Actions</th>
+                                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-100">Request</th>
                                 </tr>
                             </thead>
 
@@ -63,7 +67,7 @@ export default function ListUsers() {
                                                 </div>
 
                                                 <div className="ml-4">
-                                                    <div className="text-sm leading-5 font-medium text-gray-900">{user.fname}</div>
+                                                    <div className="text-sm leading-5 font-medium text-gray-900">{user.fname} {currentUserId == user.uid && '(You)'}</div>
                                                     <div className="text-sm leading-5 text-gray-500">{user.email}</div>
                                                 </div>
                                             </div>
@@ -82,6 +86,9 @@ export default function ListUsers() {
                                             <button onClick={() => handleAdminRoleChange(user.uid, user.admin)} className="text-indigo-600 hover:text-indigo-900">
                                                 {user.admin ? 'Remove Admin' : 'Make Admin'}
                                             </button>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                            <SelectDepartmentRequest userId={user.uid}/>
                                         </td>
                                     </tr>
                                 ))}
