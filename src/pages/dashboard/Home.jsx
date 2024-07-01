@@ -8,9 +8,9 @@ const roadMap = [
     {name: 'Admin View', done: true},
     {name: 'Data Request (from customer data such as health) ', done: true},
     {name: 'User approval (based on requests)', done: true},
-    {name: 'Data Settings'},
-    {name: 'User assistance'},
-    {name: 'Data Scrapping'},
+    {name: 'Data Settings', done: true},
+    {name: 'User assistance', done: true},
+    {name: 'Data Scrapping', done: true},
 ];
 
 
