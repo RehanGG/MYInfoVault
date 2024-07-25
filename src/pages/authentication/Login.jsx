@@ -1,11 +1,11 @@
 import safeIcon from '../../assets/safe.png';
 import Input from "../../components/authentication/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useState, useRef} from 'react';
 import SubmitButton from "../../components/authentication/SubmitButton";
 import { useDispatch } from "react-redux";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, firestore } from "../../firebase/firebase";
+import { auth, firestore, signInWithGooglePopUp } from "../../firebase/firebase";
 import { authActions } from "../../state/auth/slice";
 import { doc, getDoc } from "firebase/firestore";
 import { FirebaseError } from "firebase/app";
@@ -26,6 +26,35 @@ export default function Login() {
     });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    async function onGoogleSignIn() {
+        setMessage(undefined);
+        setLoading(true);
+        try {
+
+            let noProfile = true;
+
+            const user = await signInWithGooglePopUp();
+            const userData =  await getDoc(doc(firestore, 'users', user.user.uid));
+            if(userData.exists()) {
+                noProfile = false;
+            }
+            setMessage({type: 'success', message: "Logged In, redirecting in 1 second"});
+
+            setTimeout(() => {
+                if(noProfile) {
+                    dispatch(authActions.googleLogin());
+                } else {
+                    dispatch(authActions.login(userData));
+                    dispatch(initialDepartmentsLoad());
+                }
+            }, 1000);
+        }
+        catch (error) {
+            setLoading(false);
+        }
+    }
 
     function onLogin(event) {
         event.preventDefault();
@@ -97,6 +126,15 @@ export default function Login() {
 
                     <SubmitButton loading={loading}>Login</SubmitButton>
                 </form>
+                <div className="mt-4">
+                    <button
+                        onClick={onGoogleSignIn}
+                        className="w-full flex justify-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        disabled={loading}
+                    >
+                        Sign in with Google
+                    </button>
+                </div>
             </div>
         </div>
     );

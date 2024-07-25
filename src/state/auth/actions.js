@@ -6,7 +6,12 @@ import { initialDepartmentsLoad } from "../department/actions";
 
 export const initialUserLoad = (userId) => async (dispatch) => {
     const document = await getDoc(doc(firestore, 'users', userId));
-    dispatch(authActions.login(document.data()));
+    if(document.exists()) {
+        dispatch(authActions.login(document.data()));
+        dispatch(initialDepartmentsLoad());
+    } else {
+        dispatch(authActions.googleLogin());
+    }
     dispatch(commonActions.toggle());
-    dispatch(initialDepartmentsLoad());
+    
 }

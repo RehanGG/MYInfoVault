@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {getAuth} from "firebase/auth";
+import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import {getStorage, uploadBytes, ref, getDownloadURL} from "firebase/storage";
 
@@ -16,6 +16,13 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
+
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({   
+    prompt : "select_account"
+});
+
+export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
 
 
 export const uploadImageToFirebase = async (path, file) => {

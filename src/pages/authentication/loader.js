@@ -6,3 +6,15 @@ export function loader(isAuth) {
     } 
     return null;
 }
+
+export function createProfileLoader(isAuth, user) {
+    if(isAuth && user === null) {
+        return null;
+    } 
+    
+    if(isAuth && user) {
+        return redirect('/');
+    }
+
+    return redirect('/login');
+}

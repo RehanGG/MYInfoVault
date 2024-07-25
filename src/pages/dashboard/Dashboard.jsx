@@ -24,7 +24,10 @@ export default function Dashboard() {
     );
 }
 
-export function loader(isAuth) {
+export function loader(isAuth, user) {
+    if(isAuth && user === null) {
+        return redirect('/create-profile');
+    }
     if(isAuth) {
         return null;
     } else {

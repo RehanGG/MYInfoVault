@@ -4,10 +4,11 @@ import Login from '../pages/authentication/Login';
 import CreateAccount from "../pages/authentication/CreateAccount";
 import ResetPassword from "../pages/authentication/ResetPassword";
 import Dashboard, { loader as dashboardLoader } from "../pages/dashboard/Dashboard";
-import {loader as authLaoder} from '../pages/authentication/loader';
+import {loader as authLaoder, createProfileLoader} from '../pages/authentication/loader';
 import { useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
+import CreateProfile from "../pages/authentication/CreateProfile";
 
 const generateRoutes = user => {
   const generatedRoutes = [];
@@ -30,9 +31,10 @@ const router = (isAuth, user) => createBrowserRouter([
     path: '/',
     errorElement: <ErrorPage/>,
     element: <Dashboard/>,
-    loader: () => dashboardLoader(isAuth),
+    loader: () => dashboardLoader(isAuth, user),
     children: [...generateRoutes(user)],
   },
+  {path: '/create-profile', element: <CreateProfile/>, loader: () => createProfileLoader(isAuth, user)},
   {path: '/login', element: <Login/>, loader: () => authLaoder(isAuth)},
   {path: '/create-account', element: <CreateAccount/>, loader: () => authLaoder(isAuth)},
   {path: '/reset-password', element: <ResetPassword/>, loader: () => authLaoder(isAuth)}

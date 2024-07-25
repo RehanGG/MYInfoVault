@@ -13,6 +13,7 @@ export const dummyRouter = createBrowserRouter([
         element: <DummyPage/>
       }))
     },
+    {path: '/create-profile', element: <DummyPage/>},
     {path: '/login', element: <DummyPage/>},
     {path: '/create-account', element: <DummyPage/>},
     {path: '/reset-password', element: <DummyPage/>}

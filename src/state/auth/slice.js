@@ -7,6 +7,10 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
+        googleLogin(state, action) {
+            state.isAuthenticated = true;
+            state.user = null;
+        },
         login(state, action) {
             state.isAuthenticated = true;
             state.user = action.payload;

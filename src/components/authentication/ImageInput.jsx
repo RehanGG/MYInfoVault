@@ -4,7 +4,7 @@ import { useInput } from "../../hooks/useInput";
 
 
 export default forwardRef(function ImageInput ({label, id, disabled = false, validations = [], height = '120px', width = '120px', initialImg}, ref) {
-    const {value, setValue, error, errorMessage} = useInput(undefined, validations); 
+    const {value, setValue, error, errorMessage, changeFocus} = useInput(undefined, validations); 
 
     if(ref) {
         if(!error && value !== undefined){
@@ -38,6 +38,7 @@ export default forwardRef(function ImageInput ({label, id, disabled = false, val
                 type="file"
                 id={id}
                 name={id}
+                onBlur={changeFocus}
                 accept="image/*"
                 style={{ display: 'none' }}
                 onChange={handleSelectImage}
